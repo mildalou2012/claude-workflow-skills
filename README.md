@@ -1,106 +1,107 @@
-# Claude 产品开发工作流 Skill 套件
+# Claude Product Workflow Skills
 
-给 Claude Code 用的产品开发工作流三件套 + 编排器：**拷问需求 → 出功能清单（含验收标准）→ 审查系统（双分数报告）**。
+> **English**: This file · **中文**: [README.zh-CN.md](README.zh-CN.md)
 
-面向产品经理/独立开发者：非程序员也能用大白话驱动 AI 完成「想法 → 可验收的规划 → 可量化的体检」整个闭环。
+A skill suite for Claude Code that drives the full product development loop: **requirement interview → feature spec (with acceptance criteria) → system audit (dual-score report)**.
 
-## 包含什么
+Built for product managers and solo developers: non-programmers can drive AI through "idea → testable plan → measurable health check" using plain language.
 
-### 本项目自研（MIT）
+## What's included
 
-| Skill | 作用 | 产物 |
+### First-party skills (MIT, maintained by us)
+
+| Skill | Role | Output |
 |---|---|---|
-| `project-flow` | 项目生命周期指挥器（编排层） | 探测项目进度，路由到下方工具 |
-| `feature-spec` | 功能清单生成器 | `docs/feature-spec.md`：系统定位/功能模块/每个功能的前置·输出·实现效果·测试方法·验收标准 |
-| `system-audit` | 系统审查器 | 双分数报告（健康分 + 完成度），14 类 76 项审查，5 个阶段版本，存档留痕可跨次对比 |
+| `project-flow` | Project lifecycle conductor (orchestration layer) | Detects project stage, routes to the tools below |
+| `feature-spec` | Feature spec generator | `docs/feature-spec.md`: system positioning / feature modules / per-feature prerequisites, output, effect, test method, acceptance criteria |
+| `system-audit` | System inspector | Dual-score report (Health Score + Completion Rate), 14 categories / 76 checklist items, 5 stage-based templates, archived history for trend comparison |
 
-### 外部依赖（非本项目资产，随包分发仅供整合调用）
+### Third-party dependencies (NOT our assets — bundled for integration only)
 
-以下 Skill **不是我们开发的**，本项目仅打包分发 + 整合调用。完整来源信息见各目录内 `SOURCE.md`：
+The following skills are **not developed by us**. We bundle them for distribution and invoke them via Claude Code's Skill mechanism. Full source info lives in each directory's `SOURCE.md`:
 
-| 外部 Skill | 作用 | 来源 | 版本 | 更新时间 |
+| Skill | Role | Source | Version | Updated |
 |---|---|---|---|---|
-| `grilling` | 需求拷问引擎（访谈式追问） | 第三方开源（原仓库待追溯） | 无版本号 | 2026-08 安装；2026-09-01 描述中文化 |
-| `grill-me` | 需求拷问入口（转发器） | 第三方开源（原仓库待追溯） | 无版本号 | 2026-08 安装；2026-09-01 描述中文化 |
-| `neat-freak` | 知识收尾整理 | 第三方开源（原仓库待追溯） | 3.0.0 | 2026-08-30 安装；2026-09-01 描述中文化 |
+| `grilling` | Requirement interview engine | Third-party open source (original repo to be traced) | n/a | Installed 2026-08; description localized to Chinese 2026-09-01 |
+| `grill-me` | Interview entry (dispatcher) | Third-party open source (original repo to be traced) | n/a | Installed 2026-08; description localized 2026-09-01 |
+| `neat-freak` | Knowledge closeout | Third-party open source (original repo to be traced) | 3.0.0 | Installed 2026-08-30; description localized 2026-09-01 |
 
-> **所有权声明**：grilling / grill-me / neat-freak 的代码与设计归其原作者所有，本项目不认领。本仓库只做：标注来源、保持原状分发（含中文描述的本地修改说明）、在 `project-flow` 中通过 Claude Code 的 Skill 机制调用它们。
+> **Ownership notice**: code and design of `grilling` / `grill-me` / `neat-freak` belong to their original authors. This repo only: attributes sources, distributes them as-is (with local description changes documented), and invokes them from `project-flow`. If you see this project claiming authorship of them elsewhere, that is inaccurate.
 
-## 安装
+## Installation
 
-把 `skills/` 下的目录复制到 Claude Code 的 skills 目录（6 个全装，或只装自研三个——`project-flow` 的拷问步骤依赖 `grilling`，未装时该步骤不可用，其余功能不受影响）：
+Copy the directories under `skills/` into your Claude Code skills directory (install all 6, or only the first-party three — `project-flow`'s interview step depends on `grilling`; without it that step is unavailable, everything else still works):
 
 ```bash
 # macOS / Linux
 cp -r skills/* ~/.claude/skills/
 
 # Windows
-# 将 skills/ 下全部文件夹复制到 C:\Users\<你的用户名>\.claude\skills\
+# Copy all folders under skills/ to C:\Users\<you>\.claude\skills\
 ```
 
-## 使用（说人话即可）
+## Usage (plain language, no commands to memorize)
 
-| 你想干什么 | 对 AI 说 |
+| What you want | Say to Claude |
 |---|---|
-| 有个想法想捋清楚 | 「帮我拷问一下 XX 的想法」 |
-| 方向定了要出功能规划 | 「出个功能清单」 |
-| 系统做完了想查进度 | 「审查一下 XX」或「XX 查进度」 |
-| 不知道下一步做什么 | 「XX 接下来做什么」（触发 project-flow 自动路由） |
+| Clarify an idea before building | "Interview me about X" |
+| Generate a feature plan | "Create a feature spec" |
+| Check how complete a system is | "Audit X" / "How complete is X?" |
+| Not sure what's next | "What's next for X?" (triggers project-flow auto-routing) |
 
-### 标准流程
+### The standard loop
 
 ```
-grill-me/grilling（拷问需求）→ feature-spec（生成功能清单）→ 开发 → system-audit（审查体检）
+grill-me/grilling (requirement interview) → feature-spec (generate spec) → develop → system-audit (inspect)
 ```
 
-一次完整项目生命周期：
+1. **Interview**: "Interview me about X" → relentless product-manager-style questioning until the direction is clear
+2. **Feature spec**: "Create a feature spec" → structured, testable checklist (system positioning / modules / per-feature: prerequisites · output · effect · test method · expected result), saved to `docs/feature-spec.md`
+3. **Audit**: "Audit X" → 76 items across 14 categories + completion tracking (implementation **and** acceptance criteria), dual-score report archived; next audit automatically compares
 
-1. **拷问**：「拷问一下 XX 的想法」→ 像产品经理一样层层追问，直到方向清楚
-2. **功能清单**：「出个功能清单」→ 生成带验收标准的结构化清单（系统定位声明 / 功能模块 / 每功能：前置·输出·实现效果·测试方法·正常结果），落盘 `docs/feature-spec.md`
-3. **审查**：「审查一下 XX」→ 14 类 76 项逐项评估 + 功能完成度对照（实现 + 验收达标双重判定），输出「健康分 / 完成度」双分数报告，自动存档，下次审查自动对比
+### system-audit stage templates
 
-### system-audit 的 5 个阶段版本
-
-| 版本 | 用途 |
+| Template | Use |
 |---|---|
-| `full` 全量 | 新项目第一次体检、深度体检 |
-| `core` 核心 | 任何项目快速自查（10 分钟） |
-| `pre-launch` 上线前 | 上线前核查，❌ 必须清零 |
-| `operation` 运营期 | 已上线系统季度体检 |
-| `outsource-acceptance` 外包验收 | 交付验收（含超范围开发清单） |
+| `full` | First deep inspection, before/after major refactors |
+| `core` | 10-minute quick check at any stage |
+| `pre-launch` | Pre-launch checklist — all ❌ must be cleared |
+| `operation` | Quarterly health check for live systems |
+| `outsource-acceptance` | Vendor delivery acceptance (flags out-of-scope development) |
 
-## 语言
+## Language
 
-- **输出语言跟随你的提问语言**：用中文提问则中文输出，英文提问则英文输出，无需任何配置
-- 公开版 description 为英文（面向全球用户）；维护者本地使用中文本地化版本（描述为中文），两者行为一致
-- 外部依赖 `grilling`（拷问引擎）的输出语言同样跟随用户提问（非本项目资产）
+- **Output language follows your question**: ask in Chinese → output in Chinese; ask in English → output in English. No configuration needed
+- Public-facing descriptions are in English; maintainers use a Chinese-localized version locally — same behavior
+- Third-party `grilling` output follows your question too (not our asset)
 
-## 设计原则
+## Design principles
 
-- **证据纪律**：审查每项必须附证据（文件/命令/截图），拿不出证据标 ⚠️「未找到」，禁止凭感觉填 ✅
-- **验收标准不满足不得判 ✅**：完成度 = 实现 + 验收达标双重判定
-- **不编造**：无规划基线时完成度标「无法评估」，提示先建功能清单
-- **留痕**：评估存档 `~/.claude/skill-records/system-audit/<系统>/`，形成成熟度曲线
+- **Evidence discipline**: every checklist item must cite evidence (files / commands / screenshots); no evidence → ⚠️ "not found", never guess ✅
+- **Acceptance criteria gate**: ✅ requires implementation **and** passing acceptance criteria
+- **No fabrication**: missing planning baseline → completion marked "cannot evaluate", prompting you to build a feature spec first
+- **Trail**: audits archived under `~/.claude/skill-records/system-audit/<system>/`, forming a maturity curve
 
-## 目录结构
+## Directory structure
 
 ```
 claude-workflow-skills/
-├── README.md
-├── LICENSE                    # MIT（仅自研三个 skill；外部 skill 版权归原作者）
+├── README.md                 # English
+├── README.zh-CN.md           # 中文
+├── LICENSE                   # MIT (first-party skills only; third-party copyrights remain with their authors)
 └── skills/
-    ├── project-flow/          # 自研·编排层：SKILL.md + CHANGELOG.md
-    ├── feature-spec/          # 自研·功能清单：SKILL.md + templates/feature-spec.md
-    ├── system-audit/          # 自研·系统审查：SKILL.md + templates/（full/core/pre-launch/operation/outsource-acceptance）
-    ├── grilling/              # 外部·需求拷问引擎（来源见 SOURCE.md）
-    ├── grill-me/              # 外部·拷问入口转发器（来源见 SOURCE.md）
-    └── neat-freak/            # 外部·收尾整理 v3.0.0（来源见 SOURCE.md）
+    ├── project-flow/         # First-party · orchestration
+    ├── feature-spec/         # First-party · spec generator
+    ├── system-audit/         # First-party · inspector
+    ├── grilling/             # Third-party · interview engine (see SOURCE.md)
+    ├── grill-me/             # Third-party · interview entry (see SOURCE.md)
+    └── neat-freak/           # Third-party · knowledge closeout (see SOURCE.md)
 ```
 
-## 许可证
+## License
 
-MIT License —— 欢迎使用、修改、提意见（Issues / PR）。
+MIT License — use, modify, and contribute via Issues / PRs.
 
-## 反馈
+## Feedback
 
-这套 Skill 在真实项目验证过（跨境电商 ERP、题库刷题工具），欢迎提意见：审查项覆盖、评分口径、模板结构、使用体验。
+Validated on real projects (cross-border e-commerce ERP, quiz-bank study tool). We welcome feedback on: checklist coverage, scoring methodology, template structure, UX. Open an Issue or PR!
