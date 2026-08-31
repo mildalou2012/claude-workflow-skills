@@ -4,7 +4,9 @@
 
 面向产品经理/独立开发者：非程序员也能用大白话驱动 AI 完成「想法 → 可验收的规划 → 可量化的体检」整个闭环。
 
-## 包含什么（本项目自研，MIT）
+## 包含什么
+
+### 本项目自研（MIT）
 
 | Skill | 作用 | 产物 |
 |---|---|---|
@@ -12,30 +14,29 @@
 | `feature-spec` | 功能清单生成器 | `docs/feature-spec.md`：系统定位/功能模块/每个功能的前置·输出·实现效果·测试方法·验收标准 |
 | `system-audit` | 系统审查器 | 双分数报告（健康分 + 完成度），14 类 76 项审查，5 个阶段版本，存档留痕可跨次对比 |
 
-### 不包含什么（外部依赖声明）
+### 外部依赖（非本项目资产，随包分发仅供整合调用）
 
-以下 Skill **不是本项目资产**，本项目不含其代码，但 `project-flow` 会调用它们（Claude Code 的 Skill 机制，调用本地已安装的版本）：
+以下 Skill **不是我们开发的**，本项目仅打包分发 + 整合调用。完整来源信息见各目录内 `SOURCE.md`：
 
-| 外部 Skill | 作用 | 来源 |
-|---|---|---|
-| `grilling` / `grill-me` | 需求拷问引擎（访谈式追问） | 第三方开源，随 Claude Code 社区分发安装；本仓库未携带，原仓库链接暂无法追溯 |
-| `neat-freak` | 知识收尾整理 | 第三方开源，同上 |
+| 外部 Skill | 作用 | 来源 | 版本 | 更新时间 |
+|---|---|---|---|---|
+| `grilling` | 需求拷问引擎（访谈式追问） | 第三方开源（原仓库待追溯） | 无版本号 | 2026-08 安装；2026-09-01 描述中文化 |
+| `grill-me` | 需求拷问入口（转发器） | 第三方开源（原仓库待追溯） | 无版本号 | 2026-08 安装；2026-09-01 描述中文化 |
+| `neat-freak` | 知识收尾整理 | 第三方开源（原仓库待追溯） | 3.0.0 | 2026-08-30 安装；2026-09-01 描述中文化 |
 
-> 如果你在别处看到本项目声称包含上述三个 skill，那是不实信息——**它们不是我们做的，我们只做了整合调用**。
+> **所有权声明**：grilling / grill-me / neat-freak 的代码与设计归其原作者所有，本项目不认领。本仓库只做：标注来源、保持原状分发（含中文描述的本地修改说明）、在 `project-flow` 中通过 Claude Code 的 Skill 机制调用它们。
 
 ## 安装
 
-把 `skills/` 下的目录复制到 Claude Code 的 skills 目录：
+把 `skills/` 下的目录复制到 Claude Code 的 skills 目录（6 个全装，或只装自研三个——`project-flow` 的拷问步骤依赖 `grilling`，未装时该步骤不可用，其余功能不受影响）：
 
 ```bash
 # macOS / Linux
 cp -r skills/* ~/.claude/skills/
 
 # Windows
-# 将 skills/ 下三个文件夹复制到 C:\Users\<你的用户名>\.claude\skills\
+# 将 skills/ 下全部文件夹复制到 C:\Users\<你的用户名>\.claude\skills\
 ```
-
-依赖：需已安装 `grilling`（拷问）——未安装时 `project-flow` 的拷问步骤不可用，其余功能不受影响。
 
 ## 使用（说人话即可）
 
@@ -80,11 +81,14 @@ grill-me/grilling（拷问需求）→ feature-spec（生成功能清单）→ �
 ```
 claude-workflow-skills/
 ├── README.md
-├── LICENSE
+├── LICENSE                    # MIT（仅自研三个 skill；外部 skill 版权归原作者）
 └── skills/
-    ├── project-flow/          # 编排层：SKILL.md + CHANGELOG.md
-    ├── feature-spec/          # 功能清单：SKILL.md + templates/feature-spec.md
-    └── system-audit/          # 系统审查：SKILL.md + templates/（full/core/pre-launch/operation/outsource-acceptance）
+    ├── project-flow/          # 自研·编排层：SKILL.md + CHANGELOG.md
+    ├── feature-spec/          # 自研·功能清单：SKILL.md + templates/feature-spec.md
+    ├── system-audit/          # 自研·系统审查：SKILL.md + templates/（full/core/pre-launch/operation/outsource-acceptance）
+    ├── grilling/              # 外部·需求拷问引擎（来源见 SOURCE.md）
+    ├── grill-me/              # 外部·拷问入口转发器（来源见 SOURCE.md）
+    └── neat-freak/            # 外部·收尾整理 v3.0.0（来源见 SOURCE.md）
 ```
 
 ## 许可证
