@@ -1,10 +1,17 @@
 # Claude Product Workflow Skills
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 > **English**: This file · **中文**: [README.zh-CN.md](README.zh-CN.md)
 
 A skill suite for Claude Code that drives the full product development loop: **requirement interview → feature spec (with acceptance criteria) → system audit (dual-score report)**.
 
 Built for product managers and solo developers: non-programmers can drive AI through "idea → testable plan → measurable health check" using plain language.
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) (any recent version)
+- Optional: `grilling` skill for the requirement interview step (see [Third-party dependencies](#third-party-dependencies-not-our-assets--bundled-for-integration-only))
 
 ## What's included
 
@@ -75,6 +82,47 @@ grill-me/grilling (requirement interview) → feature-spec (generate spec) → d
 - Public-facing descriptions are in English; maintainers use a Chinese-localized version locally — same behavior
 - Third-party `grilling` output follows your question too (not our asset)
 
+## Quick validation
+
+After installing, verify the skills are loaded — in a Claude Code session say:
+
+```
+What's next for this project?
+```
+
+or simply ask "audit this system" in any project folder. If `project-flow` replies with stage routing questions (which project, what do you want to do), everything works.
+
+## Example output
+
+`system-audit` produces a dual-score report, archived for trend comparison:
+
+```markdown
+# System Audit Report: <system>
+Date: 2026-09-01 | Template: core | Method: code inspection + Q&A
+
+## Dual-score overview
+- 🟡 Health Score: 75 (Good)
+- Feature Completion: 88.5% (10✅ / 3🟡 / 0❌ of 13 planned features)
+
+## Category scores (sorted, weakest 3 highlighted)
+## Feature completion matrix
+## Findings with evidence
+## Priority todo (fix ❌ first, then ⚠️)
+## Comparison with previous audit
+```
+
+`feature-spec` produces the planning baseline that makes the completion score trustworthy:
+
+```markdown
+# <System> Feature Spec
+## 1. System positioning   (what it is / where it runs / what it does NOT do)
+## 2. Feature module overview (P0/P1/P2)
+## 3. Module details — per feature:
+   - Description / Prerequisites / Output / Effect
+   - Test method / Expected result (acceptance criteria)
+## 4. Open items & risks
+```
+
 ## Design principles
 
 - **Evidence discipline**: every checklist item must cite evidence (files / commands / screenshots); no evidence → ⚠️ "not found", never guess ✅
@@ -104,4 +152,8 @@ MIT License — use, modify, and contribute via Issues / PRs.
 
 ## Feedback
 
-Validated on real projects (cross-border e-commerce ERP, quiz-bank study tool). We welcome feedback on: checklist coverage, scoring methodology, template structure, UX. Open an Issue or PR!
+I've tried this suite briefly on my own small projects — not deeply validated yet, so your mileage may vary. Feedback is very welcome on: checklist coverage, scoring methodology, template structure, UX. Open an Issue or PR!
+
+## Maintainer
+
+阿楼 (mildalou2012) — product manager, not a programmer; built this to run AI-assisted product development.
