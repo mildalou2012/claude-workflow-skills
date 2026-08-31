@@ -47,6 +47,16 @@ description: >-
 - 产物自动衔接：拷问共识（对话中）→ feature-spec 落盘 `docs/feature-spec.md` → system-audit 读取 spec 做完成度对照
 - 一次可串多步（如新项目 = 拷问 + 出清单；新需求 = 拷问 + 更新 spec），**每步完成后问用户是否继续下一步**，不一口气全跑
 
+## 语言（v1.1 起，公开版）
+
+- 首次运行：读 `~/.claude/skill-preferences.json` 的 `language` 字段
+  - 存在 → 后续所有输出用该语言
+  - 不存在 → **默认英文**，以英文询问用户常用语言（"Please tell me your preferred language (e.g. 'English', '中文', '日本語'): "），用户告知后写入该文件，本次起生效
+- 语言影响：本 skill 及编排出来的 feature-spec / system-audit 的**所有生成内容**（问答/清单/报告/提示）使用偏好语言；结构化骨架不变，渲染语言跟随偏好
+- 文件共享：`~/.claude/skill-preferences.json` 为全部 skill 共享，**问一次处处生效**
+- 本仓库**不携带**该配置文件——每个安装者首次运行自行询问
+- 注意：外部依赖 `grilling`（拷问引擎）的输出语言不受本偏好控制（非本项目资产）
+
 ## 红线
 
 - 探测只读，不动项目任何文件
