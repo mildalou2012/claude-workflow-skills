@@ -1,11 +1,11 @@
 ---
 name: system-audit
 description: >-
-  【技能·系统审查】对软件系统做全面体检：14 类审查项逐项评估 + 规划功能完成度对照，输出「健康分 / 完成度」双分数报告，存档留痕可跨次对比。
-  按项目阶段选版本：full（全量）/ core（核心快速自查）/ pre-launch（上线前核查）/ operation（运营期体检）/ outsource-acceptance（外包验收）。
-  当你想审查、体检、评估一个系统的搭建程度、成熟度、功能完成度，或验收外包交付时使用。
-  触发词：系统审查、系统体检、审查一下系统、评估系统、系统搭建程度、系统成熟度、功能完成度、完成度多少、验收项目、系统健康分。
-  不触发：单次代码 review、单个文件检查、局部 bug 排查（用 /code-review 或直接处理）。
+  【Skill·System Audit】Full inspection for software systems: 14 categories of checklist items + planned-feature completion tracking, outputting a dual-score report (Health Score / Completion Rate) with archived history for cross-session trend comparison.
+  Stage-based versions: full (deep inspection) / core (10-min quick check) / pre-launch (must-fix checklist before launch) / operation (quarterly health check) / outsource-acceptance (vendor delivery acceptance, flags out-of-scope development).
+  Use when you want to audit, inspect, or evaluate a system's maturity, health, feature completion, or accept an outsourced delivery.
+  Triggers: "system audit", "audit this system", "inspect the system", "check progress", "how complete is it", "acceptance check".
+  Do not trigger for single-file code review (use /code-review).
 ---
 
 # System Audit · 系统审查
@@ -111,14 +111,10 @@ grill-me（拷问需求）→ feature-spec（生成 docs/feature-spec.md）→ s
 - 更新 README.md：双分曲线加一个点（`| 2026-08-31 | core | 62 | 45% | 良好→待补强 |`），待办清单与本次报告对齐
 - 对比摘要规则：与最近一次同版本评估对比双分；无历史则写「首次建档」
 
-## 语言（v1.2 起，公开版）
+## 语言
 
-- 首次运行：读 `~/.claude/skill-preferences.json` 的 `language` 字段
-  - 存在 → 后续所有输出用该语言
-  - 不存在 → **默认英文**，以英文询问用户常用语言（"Please tell me your preferred language (e.g. 'English', '中文', '日本語'): "），用户告知后写入该文件，本次起生效
-- 语言影响：体检报告及所有生成内容（问答/提示/对比摘要）使用偏好语言；`templates/*.md` 是审查骨架，列名按偏好语言渲染
-- 文件共享：`~/.claude/skill-preferences.json` 为全部 skill 共享，**问一次处处生效**
-- 本仓库**不携带**该配置文件——每个安装者首次运行自行询问
+- **输出语言跟随用户提问语言**：用户用中文提问则中文输出，英文提问则英文输出，无需任何配置
+- 公开版 description 为英文；本仓库不携带任何语言配置文件
 
 ## 红线
 

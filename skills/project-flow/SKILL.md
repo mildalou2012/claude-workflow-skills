@@ -1,11 +1,11 @@
 ---
 name: project-flow
 description: >-
-  【技能·项目流程】项目生命周期指挥器：探测项目当前进度（想法/规划/开发/上线/运营/外包），自动路由到对应工具执行——grilling 拷问需求、feature-spec 出功能清单、system-audit 审查体检。
-  任何进度的项目都能进：新想法、已有项目加需求、查进度、梳理项目、上线前核查、外包验收。
-  当你想说「接下来做什么」「走一下流程」「XX 有新需求」「梳理一下 XX」时使用——一句话就行，不用想该用哪个工具。
-  触发词：立项、新需求、加个功能、接下来做什么、项目下一步、走流程、梳理项目、查进度、项目体检、验收项目、上新项目、项目做到哪了。
-  不触发：不涉及具体项目的闲聊、单次代码修改（直接开发即可）。
+  【Skill·Project Flow】Project lifecycle conductor: detect the project's current stage (idea / planning / development / live / outsourcing) and route automatically to the right tool — grilling for requirement interview, feature-spec for feature list, system-audit for inspection.
+  Works at any stage: new idea, new feature request, check progress, organize requirements, pre-launch checklist, vendor acceptance, operational health check.
+  Say one sentence — "what's next for X", "X has a new feature request", "organize X" — no need to know which tool to use.
+  Triggers: "what's next", "new project", "new feature", "check progress", "organize this project", "acceptance", "health check".
+  Do not trigger for unrelated chat, or one-off code edits (just code directly).
 ---
 
 # Project Flow · 项目流程指挥
@@ -47,15 +47,11 @@ description: >-
 - 产物自动衔接：拷问共识（对话中）→ feature-spec 落盘 `docs/feature-spec.md` → system-audit 读取 spec 做完成度对照
 - 一次可串多步（如新项目 = 拷问 + 出清单；新需求 = 拷问 + 更新 spec），**每步完成后问用户是否继续下一步**，不一口气全跑
 
-## 语言（v1.1 起，公开版）
+## 语言
 
-- 首次运行：读 `~/.claude/skill-preferences.json` 的 `language` 字段
-  - 存在 → 后续所有输出用该语言
-  - 不存在 → **默认英文**，以英文询问用户常用语言（"Please tell me your preferred language (e.g. 'English', '中文', '日本語'): "），用户告知后写入该文件，本次起生效
-- 语言影响：本 skill 及编排出来的 feature-spec / system-audit 的**所有生成内容**（问答/清单/报告/提示）使用偏好语言；结构化骨架不变，渲染语言跟随偏好
-- 文件共享：`~/.claude/skill-preferences.json` 为全部 skill 共享，**问一次处处生效**
-- 本仓库**不携带**该配置文件——每个安装者首次运行自行询问
-- 注意：外部依赖 `grilling`（拷问引擎）的输出语言不受本偏好控制（非本项目资产）
+- **输出语言跟随用户提问语言**：用户用中文提问则中文输出，英文提问则英文输出，无需任何配置
+- 公开版 description 为英文；本仓库不携带任何语言配置文件
+- 外部依赖 `grilling`（拷问引擎）的输出语言同样跟随用户提问（非本项目资产）
 
 ## 红线
 

@@ -1,12 +1,12 @@
 ---
 name: feature-spec
 description: >-
-  【技能·功能清单】把需求共识整理成结构化功能清单（feature-spec）：系统定位声明（什么系统/前台后台/运行硬件）、功能模块树、每个功能的前置条件/输出/实现效果/测试方法/正常结果（验收标准）。
-  在 grill-me/grilling 拷问达成共识后调用（也可从现有项目文档或直接输入生成）。
-  功能清单是审查的前置基线：system-audit 审查时直接读取它做完成度对照，不用临时抓文档。
-  当你想梳理功能、出功能规划、写功能清单、验收标准、给开发做规格说明时使用。
-  触发词：功能清单、功能规划、功能梳理、整理需求、出规格、验收标准、怎么测、feature spec、需求文档。
-  不触发：纯闲聊、拷问需求本身（用 grill-me）、审查评估系统（用 system-audit）。
+  【Skill·Feature Spec】Turn requirement consensus into a structured, testable feature spec: system positioning (what/where it runs), feature module tree, and per-feature description / prerequisites / output / effect / test method / expected result (acceptance criteria).
+  Invoke after a grill-me/grilling requirement interview, or generate from existing project docs.
+  The spec is the planning baseline for system-audit: it reads docs/feature-spec.md to verify feature completion against acceptance criteria.
+  Use when you want to organize features, write a feature plan, define acceptance criteria, or hand a spec to a developer.
+  Triggers: "feature spec", "feature plan", "organize the requirements", "acceptance criteria", "how do we test this".
+  Do not trigger for pure chat, or auditing a system (use system-audit).
 ---
 
 # Feature Spec · 功能清单
@@ -48,14 +48,10 @@ grill-me/grilling（拷问需求，共识在对话中，不落盘）
 | 3. 模块详情 | 每功能：描述/前置/输出/实现效果/测试方法/正常结果/优先级 | 完成度双重判定（实现+验收达标） |
 | 4. 未定事项与风险 | 写不出验收标准的功能、依赖未定的事 | 审查时标 ⚠️ 的来源 |
 
-## 语言（v1.1 起，公开版）
+## 语言
 
-- 首次运行：读 `~/.claude/skill-preferences.json` 的 `language` 字段
-  - 存在 → 后续所有输出用该语言
-  - 不存在 → **默认英文**，以英文询问用户常用语言（"Please tell me your preferred language (e.g. 'English', '中文', '日本語'): "），用户告知后写入该文件，本次起生效
-- 语言影响：功能清单及所有生成内容（问答/确认/提示）使用偏好语言；`templates/feature-spec.md` 是结构骨架，字段名按偏好语言渲染
-- 文件共享：`~/.claude/skill-preferences.json` 为全部 skill 共享，**问一次处处生效**
-- 本仓库**不携带**该配置文件——每个安装者首次运行自行询问
+- **输出语言跟随用户提问语言**：用户用中文提问则中文输出，英文提问则英文输出，无需任何配置
+- 公开版 description 为英文；本仓库不携带任何语言配置文件
 
 ## 红线
 
