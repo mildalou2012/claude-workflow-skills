@@ -4,8 +4,9 @@ description: >-
   【Skill·Feature Spec】Turn requirement consensus into a structured, testable feature spec: system positioning (what/where it runs), feature module tree, and per-feature description / prerequisites / output / effect / test method / expected result (acceptance criteria).
   Invoke after a grill-me/grilling requirement interview, or generate from existing project docs.
   The spec is the planning baseline for system-audit: it reads docs/feature-spec.md to verify feature completion against acceptance criteria.
-  Use when you want to organize features, write a feature plan, define acceptance criteria, or hand a spec to a developer.
-  Triggers: "feature spec", "feature plan", "organize the requirements", "acceptance criteria", "how do we test this".
+  Before development, optionally split the spec into tickets (step 6): each ticket carries acceptance criteria traceable to the spec and blocking dependencies, saved to docs/tickets/ — an execution plan for your agent, or a task brief for a vendor.
+  Use when you want to organize features, write a feature plan, define acceptance criteria, hand a spec to a developer, or split work into tickets.
+  Triggers: "feature spec", "feature plan", "organize the requirements", "acceptance criteria", "how do we test this", "break down into tickets", "task brief", "development plan".
   Do not trigger for pure chat, or auditing a system (use system-audit).
 ---
 
@@ -18,7 +19,9 @@ description: >-
 ```
 grill-me/grilling（拷问需求，共识在对话中，不落盘）
   → feature-spec（本技能：重建共识 → 生成清单 → 落盘项目内 docs/feature-spec.md）
-    → system-audit（审查：读 feature-spec 做完成度对照）
+    → 拆工单（环节 6，可选，开发前：清单 → 工单，落盘 docs/tickets/）
+      → 开发（agent 按工单执行 / 外包技术方按任务书开发）
+    → system-audit（审查：读 feature-spec 做完成度对照，开发完按工单核对验收）
 ```
 
 ## 输入来源（三选一）
@@ -37,7 +40,14 @@ grill-me/grilling（拷问需求，共识在对话中，不落盘）
    - 明确排除项必须写（不做的事），防扯皮
 4. **用户确认**：清单生成后给用户过目，确认无误才落盘；有异议按用户意见修改。
 5. **落盘**：`<项目根>/docs/feature-spec.md`（跟随项目 git；无 docs/ 目录则创建）。落盘后告知：可用 /system-audit 直接审查了。
-6. **迭代更新**：功能清单是活文档——功能新增/变更/取消时更新它，同步改「版本」并记录变更（底部加变更记录行）。审查发现「规划外新增功能」时，回来把该功能补进清单（标 ⭐ 或并入正式规划）。
+6. **拆工单（可选，开发前）**：用户要动工时按 `templates/tickets.md` 拆工单，落盘 `<项目根>/docs/tickets/`（每工单一个文件，按依赖顺序编号）。拆解纪律：
+   - 每工单 = 一个**可独立验收的完整切片**（端到端走通，做完自己就能演示/验证），不按层拆（别把「数据库/接口/界面」拆成三个工单）
+   - 每工单写明**阻塞依赖**（哪些工单必须先完成）；无阻塞的工单可以立刻开工
+   - 工单「验收标准」必须**可追溯**功能清单对应功能的「测试方法 + 正常结果」，粒度细化但不编造——清单里标「未定」的不允许拆成工单，先回第 4 节补定义
+   - 不写具体文件路径或代码片段（会过期），只写端到端行为和验收
+   - 拆解给用户过目（粒度是否合适、阻塞关系对不对、要不要合并/拆分），确认后才落盘
+   - 用途：agent 按工单开发（做完对照验收）、外包时当任务书（防超范围开发）
+7. **迭代更新**：功能清单是活文档——功能新增/变更/取消时更新它，同步改「版本」并记录变更（底部加变更记录行）。审查发现「规划外新增功能」时，回来把该功能补进清单（标 ⭐ 或并入正式规划）。工单同理：清单变更后，受影响的工单同步更新。
 
 ## 模板结构（要素见 templates/feature-spec.md）
 
@@ -47,6 +57,7 @@ grill-me/grilling（拷问需求，共识在对话中，不落盘）
 | 2. 功能模块总览 | 模块名+职责+优先级 P0/P1/P2 | 完成度对照的分组 |
 | 3. 模块详情 | 每功能：描述/前置/输出/实现效果/测试方法/正常结果/优先级 | 完成度双重判定（实现+验收达标） |
 | 4. 未定事项与风险 | 写不出验收标准的功能、依赖未定的事 | 审查时标 ⚠️ 的来源 |
+| 附. 工单（templates/tickets.md） | 环节 6 拆解：每工单 = 可独立验收的完整切片 + 验收标准 + 阻塞依赖 | 开发执行计划 / 外包任务书 |
 
 ## 语言
 
